@@ -14,14 +14,29 @@ def get_data():
         return data
 
 
-def add_user(id):
-    baZa = get_data()
-    id = str(id)
-    if id not in baZa:
-        struktura = {id: {"slovo": None, "otgad": [], "neotgad": None, "hp": 8, "podskazka": None}}
-        baZa.update(struktura)
-        update_data(baZa)
+def add_user(message, baZa):
+    struktura = {
+        message.from_user.id:
+            {
+                "slovo": None,
+                "otgad": [],
+                "neotgad": None,
+                "hp": 8,
+                "podskazka": None,
+                "points": 0,
+                "nickname": message.from_user.username,
+                "name": message.from_user.full_name
+            }
+    }
+    baZa.update(struktura)
+    update_data(baZa)
 
+
+def update_user(message, baZa):
+    user = baZa[str(message.from_user.id)]
+    user['name'] = message.from_user.full_name
+    user['nickname'] = message.from_user.username
+    update_data(baZa)
 
 def show(slovo1, otgad1):
     pustishka = ''
@@ -48,7 +63,7 @@ def zagad_slov():
     with open("all_words.json", encoding="utf-8") as f:
         data = json.load(f)
         while True:
-            slovo = random.choice(list(data.keys()))
+            slovo = random.choice(list(data.keys())).lower()
             if "-" in slovo:
                 continue
             break
@@ -62,8 +77,10 @@ def klava():
     item1 = types.KeyboardButton("Загадать слово")
     item2 = types.KeyboardButton("Выход")
     item3 = types.KeyboardButton("Определение из словаря Ефремовой")
+    item4 = types.KeyboardButton("Счет / Таблица лидеров")
     markup.add(item1, item2)
     markup.add(item3)
+    markup.add(item4)
     return markup
 
 
@@ -74,3 +91,8 @@ def sbros(user, baza):
     user["neotgad"] = []
     user["podskazka"] = None
     update_data(baza)
+
+def slov_leader(baza):
+    slov_l = dict(sorted(baza.items(), key=lambda item: item[1]["points"], reverse=True))
+    return slov_l
+

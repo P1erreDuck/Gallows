@@ -23,17 +23,18 @@ def gameplay(message: types.Message):
                     message.chat.id, f'Буква "{vvod}" открыта!\n {show(user["slovo"], user["otgad"])}')
                 update_data(baza)
                 if len(user["neotgad"]) == 0:
+                    user['points'] += user["hp"]
                     bot.send_message(
                         message.chat.id,
-                        f'Поздравляю! Ты угадал слово <b>{user["slovo"]}</b>!'
-                        f'\n Чтобы начать новую игру нажми Загадать слово',
+                        f'Поздравляю! Ты угадал слово <b>{user["slovo"]}</b> и получил {user["hp"]} очков!\nЧтобы начать новую игру нажми Загадать слово',
                         reply_markup=klava()
                     )
                     sbros(user, baza)
                     update_data(baza)
 
             elif vvod in user['otgad']:
-                bot.send_message(message.chat.id, f'Ты уже проверял букву "{vvod}"!\n {show(user["slovo"], user["otgad"])}')
+                bot.send_message(message.chat.id, f'Ты уже проверял букву "{vvod}"!'
+                                                  f'\n{show(user["slovo"], user["otgad"])}')
             else:
                 user["hp"] = user["hp"] - 1
                 user["otgad"].append(vvod)
@@ -44,7 +45,7 @@ def gameplay(message: types.Message):
                     bot.send_message(
                         message.chat.id,
                         f'Поражение! Это было слово <b>{user["slovo"]}</b>. '
-                        f'\n Чтобы начать новую игру нажми Загадать слово',
+                        f'\nЧтобы начать новую игру нажми Загадать слово',
                         reply_markup=klava()
                     )
                     sbros(user, baza)

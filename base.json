@@ -1,16 +1,32 @@
 {
+  "5055699244": {
+    "slovo": null,
+    "otgad": [],
+    "neotgad": null,
+    "hp": 8,
+    "podskazka": null,
+    "points": 0,
+    "nickname": "oldbotgoldceo",
+    "name": "Red @oldbot.gold"
+  },
   "270980674": {
     "slovo": null,
     "otgad": [],
     "neotgad": [],
     "hp": 8,
-    "podskazka": null
+    "podskazka": null,
+    "points": 8,
+    "nickname": "pd45000000",
+    "name": "PD"
   },
   "579142036": {
     "slovo": null,
     "otgad": [],
-    "neotgad": null,
+    "neotgad": [],
     "hp": 8,
-    "podskazka": null
+    "podskazka": null,
+    "points": 0,
+    "nickname": "fkmrak",
+    "name": "\u0f7c \u041c\u0430\u043a\u0441"
   }
 }
